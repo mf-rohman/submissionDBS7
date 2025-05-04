@@ -1,6 +1,8 @@
 import { createStory } from "../../data/api";
 import "leaflet/dist/leaflet.css";
+import "../../../styles/create-story-page.css";
 import L from "leaflet";
+
 export default class CreatePage {
   async render() {
     return `
@@ -8,11 +10,32 @@ export default class CreatePage {
                 <h2>Create New Story</h2>
                 <form class="create-story-form" id="create-story-form" enctype="multipart/form-data">
                     <div class="form-group">
-                        <label for="photo">Camera</label>
-                        <video  id="camera" autoplay playsinline width="320" height="240" style="border:1px solid #ccc"></video>
-                        <br>
-                        <button type="button" id="capture-btn" class="btn">Capture Foto</button>
-                        <canvas id="snapshot" width="320" height="240" style="display: none;"></canvas>
+                        <label>Choose Input Method</label>
+                        <div class="input-method-selector">
+                            <label class="radio-label">
+                                <input type="radio" name="input-method" value="camera" checked> Camera
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="input-method" value="upload"> Upload File
+                            </label>
+                        </div>
+                        <div id="camera-input" class="input-method">
+                            <label for="photo">Camera</label>
+                            <video id="camera" autoplay playsinline width="320" height="240"></video>
+                            <div class="photo-preview" id="camera-preview" style="display: none;">
+                                <label>Photo Preview</label>
+                                <img id="photo-preview" alt="Photo preview" width="320" height="240">
+                            </div>
+                            <button type="button" id="capture-btn" class="btn">Capture Foto</button>
+                        </div>
+                        <div id="file-input" class="input-method" style="display: none;">
+                            <label for="photo-upload">Upload Image</label>
+                            <input type="file" id="photo-upload" accept="image/*" class="file-input">
+                            <div class="photo-preview" id="upload-preview" style="display: none;">
+                                <label>Photo Preview</label>
+                                <img id="upload-preview-img" alt="Photo preview" width="320" height="240">
+                            </div>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="description">Description</label>
@@ -21,8 +44,8 @@ export default class CreatePage {
                     <div class="form-group">
                         <label for="map">Choose Location</label>
                         <div id="map" style="height: 300px;"></div>
-                        <input type="hidden" id="lat" />
-                        <input type="hidden" id="lon" />
+                        <input type="text" id="lat" placeholder="Field for latitude from map marker" readonly />
+                        <input type="text" id="lon" placeholder="Field for longitude from map marker" readonly />
                     </div>
                     <button type="submit" class="btn">Create Story</button>
                 </form>
@@ -30,32 +53,100 @@ export default class CreatePage {
             </section>
         `;
   }
+
   async afterRender() {
     const createStoryForm = document.getElementById("create-story-form");
     const createStoryMessage = document.getElementById("create-story-message");
     const videoCapture = document.getElementById("camera");
-    const canvas = document.getElementById("snapshot");
+    const photoPreview = document.getElementById("photo-preview");
+    const cameraPreviewContainer = document.getElementById("camera-preview");
     const captureButton = document.getElementById("capture-btn");
-    let photoBlob = null;
+    const photoUpload = document.getElementById("photo-upload");
+    const uploadPreviewContainer = document.getElementById("upload-preview");
+    const uploadPreviewImg = document.getElementById("upload-preview-img");
+    const cameraInput = document.getElementById("camera-input");
+    const fileInput = document.getElementById("file-input");
+    const inputMethodRadios = document.querySelectorAll(
+      'input[name="input-method"]'
+    );
 
+    let photoBlob = null;
     let stream = null;
-    try {
-      stream = await navigator.mediaDevices.getUserMedia({ video: true });
-      videoCapture.srcObject = stream;
-      videoCapture.play();
-    } catch (error) {
-      createStoryMessage.textContent = "Can't access camera";
-      createStoryMessage.style.color = "red";
+
+    inputMethodRadios.forEach((radio) => {
+      radio.addEventListener("change", (e) => {
+        const method = e.target.value;
+
+        if (method === "camera") {
+          cameraInput.style.display = "block";
+          fileInput.style.display = "none";
+          startCamera();
+        } else {
+          cameraInput.style.display = "none";
+          fileInput.style.display = "block";
+          stopCamera();
+        }
+        cameraPreviewContainer.style.display = "none";
+        uploadPreviewContainer.style.display = "none";
+        photoBlob = null;
+      });
+    });
+
+    async function startCamera() {
+      try {
+        stream = await navigator.mediaDevices.getUserMedia({ video: true });
+        videoCapture.srcObject = stream;
+        videoCapture.play();
+      } catch (error) {
+        createStoryMessage.textContent = "Can't access camera";
+        createStoryMessage.style.color = "red";
+      }
     }
 
+    function stopCamera() {
+      if (stream) {
+        stream.getTracks().forEach((track) => track.stop());
+        stream = null;
+      }
+    }
+
+    startCamera();
+
     captureButton.addEventListener("click", () => {
-      const context = canvas.getContext("2d");
-      canvas.style.display = "block";
-      context.drawImage(videoCapture, 0, 0, canvas.width, canvas.height);
-      canvas.toBlob((blob) => {
+      const tempCanvas = document.createElement("canvas");
+      tempCanvas.width = videoCapture.videoWidth;
+      tempCanvas.height = videoCapture.videoHeight;
+
+      const context = tempCanvas.getContext("2d");
+      context.drawImage(
+        videoCapture,
+        0,
+        0,
+        tempCanvas.width,
+        tempCanvas.height
+      );
+
+      const dataURL = tempCanvas.toDataURL("image/jpeg");
+      photoPreview.src = dataURL;
+      cameraPreviewContainer.style.display = "block";
+
+      tempCanvas.toBlob((blob) => {
         photoBlob = blob;
         console.log("captured", blob);
       }, "image/jpeg");
+    });
+
+    photoUpload.addEventListener("change", (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        photoBlob = file;
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          uploadPreviewImg.src = event.target.result;
+          uploadPreviewContainer.style.display = "block";
+        };
+        reader.readAsDataURL(file);
+      }
     });
 
     const map = L.map("map").setView([-6.2, 106.8], 10);
@@ -64,12 +155,10 @@ export default class CreatePage {
     }).addTo(map);
 
     let marker;
-    map.on("click", function (e) {
+    map.on("click", (e) => {
       const { lat, lng } = e.latlng;
       document.getElementById("lat").value = lat;
       document.getElementById("lon").value = lng;
-    //   const location = {lat, lon};
-    //   console.log({location});
       if (marker) {
         marker.setLatLng(e.latlng);
       } else {
@@ -87,7 +176,8 @@ export default class CreatePage {
       const lon = document.getElementById("lon").value;
 
       if (!photoBlob) {
-        createStoryMessage.textContent = "Take picture frist";
+        createStoryMessage.textContent =
+          "Please provide an image (capture or upload)";
         createStoryMessage.style.color = "red";
         return;
       }
@@ -96,17 +186,18 @@ export default class CreatePage {
         await createStory({
           description,
           photo: photoBlob,
-          lat: lat ? parseFloat(lat) : undefined,
-          lon: lon ? parseFloat(lon) : undefined,
+          lat: lat ? Number.parseFloat(lat) : undefined,
+          lon: lon ? Number.parseFloat(lon) : undefined,
         });
         createStoryMessage.textContent = "Story created successfully";
         createStoryMessage.style.color = "green";
         createStoryForm.reset();
-        canvas.style.display = "none";
 
-        if (stream) {
-          stream.getTracks().forEach((track) => track.stop());
-        }
+        cameraPreviewContainer.style.display = "none";
+        uploadPreviewContainer.style.display = "none";
+
+        stopCamera();
+
         window.location.hash = "#/";
       } catch (error) {
         createStoryMessage.textContent = `Failed create story: ${error.message}`;

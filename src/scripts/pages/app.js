@@ -46,8 +46,16 @@ class App {
 
 
     const page = routes[url];
-    this.#content.innerHTML = await page.render();
-    await page.afterRender();
+
+    if (document.startViewTransition) {
+      document.startViewTransition(async () => {
+        this.#content.innerHTML = await page.render();
+        if (page.afterRender) await page.afterRender();
+      });
+    } else {
+      this.#content.innerHTML = await page.render();
+      if (page.afterRender) await page.afterRender();
+    }
   }
 }
 

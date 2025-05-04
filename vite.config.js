@@ -7,7 +7,7 @@ export default defineConfig({
   publicDir: resolve(__dirname, 'src', 'public'),
   build: {
     outDir: resolve(__dirname, 'dist'),
-    emptyOutDir: true,
+    emptyOutDir: false,
   },
   resolve: {
     alias: {

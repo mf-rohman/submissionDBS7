@@ -1,10 +1,10 @@
 import { getAllDataStories } from "../../data/api";
+import "../../../styles/home-page.css";
 
 export default class HomePage {
   async render() {
     return `
-      <section class="home-page container">
-        <h2>List Story<h2>
+      <section class="home-page">
         <div class="story-list" id="story-list"></div>
         <div class="home-page-massege" id="home-page-message"></div>
       </section>
@@ -12,6 +12,14 @@ export default class HomePage {
   }
 
   async afterRender() {
+    function capitalizeEachWord(str) {
+      return str
+        .split(" ")
+        .map(
+          (word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+        )
+        .join(" ");
+    }
     const listStoryContainer = document.getElementById("story-list");
     const homePageMessage = document.getElementById("home-page-message");
     listStoryContainer.innerHTML = "<p>Loading...</p>";
@@ -34,13 +42,19 @@ export default class HomePage {
           story.name
         }" class="story-img" />
             <div class="story-body">
-              <h3>${story.name}</h3>
-              <p>${story.description}</p>
-              <p class="story-date">${new Date(
+              <h4 style="text-align: center;">${story.name.toUpperCase()}</h4> <br>
+              <p class="story-desc"><span>Description : </span> ${capitalizeEachWord(
+                story.description
+              )}</p>
+              <p class="story-date"><span>Time Stamp : </span> ${new Date(
                 story.createdAt
               ).toLocaleString()}</p>
-              <p class="story-coordinate">${story.lat}</p>
-              <p class="story-coordinate">${story.lon}</p>
+              <p class="story-coordinate"><span>Latitude : </span>${
+                story.lat
+              }</p>
+              <p class="story-coordinate"><span>Longitude : </span>${
+                story.lon
+              }</p>
             </div>
           </div>
         `;

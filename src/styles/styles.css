@@ -3,10 +3,35 @@
   padding: 0;
 
   box-sizing: border-box;
+  
+}
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 400ms;
+  animation-timing-function: ease;
+}
+
+::view-transition-old(root) {
+  animation-name: fade-out;
+}
+
+::view-transition-new(root) {
+  animation-name: fade-in;
+}
+::view-transition-old(root) {
+  animation: slide-out 400ms ease forwards;
+}
+
+::view-transition-new(root) {
+  animation: slide-in 400ms ease forwards;
 }
 
 body {
   font-family: 'Arial', sans-serif;
+  scroll-behavior: smooth;
+}
+body::-webkit-scrollbar {
+  display: none;
 }
 
 .container {
@@ -16,7 +41,31 @@ body {
 }
 
 header {
-  background-color: lightskyblue;
+  background-color: rgb(235, 236, 236);
+  box-shadow: 0px 10px 20px 5px rgba(0, 0, 0, 0.2);
+  border-bottom-right-radius: 30px;
+  border-bottom-left-radius: 30px;
+  border: 2px solid #33333381;
+  position: fixed;
+  width: 100%;
+  z-index: 999;
+  font-weight: bold;
+  overflow: hidden;
+}
+
+header::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 0 0 30px 30px;
+  border: 2px solid transparent;
+  box-sizing: border-box;
+  z-index: 1000;
+  pointer-events: none;
+  animation: borderAnimation 3s linear infinite;
 }
 
 .main-header {
@@ -37,7 +86,7 @@ header {
 }
 
 .navigation-drawer {
-  min-height: 100vh;
+  min-height: 100dvh;
   width: 200px;
   padding: 20px 10px;
   background-color: #fff;
@@ -92,13 +141,81 @@ header {
 .nav-list li a:hover {
   text-decoration: underline;
 }
+.loader-overlay {
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
 
 /* MAIN */
 .main-content {
-  padding-block: 20px;
+  padding-block: 10px;
+  transition: opacity 1s ease-in;
+  /* opacity: 1; */
 }
 
 /* Write your styles more here */
+@keyframes borderAnimation {
+  0% {
+    border-top-color: #0d78dd;
+    border-right-color: transparent;
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+  }
+  25% {
+    border-top-color: #0ea5e9;
+    border-right-color: #0ea5e9;
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+  }
+  50% {
+    border-top-color: transparent;
+    border-right-color: #0ea5e9;
+    border-bottom-color: #0ea5e9;
+    border-left-color: transparent;
+  }
+  75% {
+    border-top-color: transparent;
+    border-right-color: transparent;
+    border-bottom-color: #0ea5e9;
+    border-left-color: #0ea5e9;
+  }
+  100% {
+    border-top-color: #0ea5e9;
+    border-right-color: transparent;
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+  }
+}
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-out {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(-10px); }
+}
+@keyframes slide-out {
+  from {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-30px) scale(0.96);
+  }
+}
+
+@keyframes slide-in {
+  from {
+    opacity: 0;
+    transform: translateX(30px) scale(1.02);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
 
 @media screen and (width > 1000px) {
   .navigation-drawer {

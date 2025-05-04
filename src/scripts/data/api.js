@@ -1,25 +1,34 @@
 import CONFIG from "../config";
+import { fetchLoader, stopLoader } from "../loader-animation";
 
-const keyToken = localStorage.getItem("token");
 export async function getAllDataStories() {
+  fetchLoader();
   try {
-    const fetchResponse = await fetch(CONFIG.API_BASE_URL + "/stories", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${keyToken}`,
-      },
-    });
+    const keyToken = localStorage.getItem("token");
+    const fetchResponse = await fetch(
+      CONFIG.API_BASE_URL + "/stories?size=80",
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${keyToken}`,
+        },
+      }
+    );
     const result = await fetchResponse.json();
     return result;
   } catch (error) {
     alert("Error Get All Data Stroies : " + error.message);
     console.error(error);
+  } finally {
+    stopLoader();
   }
 }
 
 export async function createStory({ description, photo, lat, lon }) {
+  fetchLoader();
   try {
+    const keyToken = localStorage.getItem("token");
     const formData = new FormData();
     formData.append("description", description);
     formData.append("photo", photo);
@@ -43,10 +52,13 @@ export async function createStory({ description, photo, lat, lon }) {
   } catch (error) {
     alert("Error Create All Data Stroies : " + error.message);
     console.error(error);
+  } finally {
+    stopLoader();
   }
 }
 
 export async function login({ email, password }) {
+  fetchLoader();
   try {
     const fetchResponse = await fetch(CONFIG.API_BASE_URL + "/login", {
       method: "POST",
@@ -60,22 +72,21 @@ export async function login({ email, password }) {
     });
 
     const result = await fetchResponse.json();
-    // if (!fetchResponse.ok) {
-    // alert(`Error When Get All Data Strories : ${fetchResponse.statusText}`);
-    // };
     if (fetchResponse.ok && result.loginResult?.token) {
       localStorage.setItem("token", result.loginResult.token);
       localStorage.setItem("userName", result.loginResult.name);
-      window.location.hash = "#/";
     }
     return result;
   } catch (error) {
     alert("Error While Login : " + error.message);
     console.error(error);
+  } finally {
+    stopLoader();
   }
 }
 
 export async function register({ name, email, password }) {
+  fetchLoader();
   try {
     const fetchResponse = await fetch(CONFIG.API_BASE_URL + "/register", {
       method: "POST",
@@ -88,14 +99,16 @@ export async function register({ name, email, password }) {
         password: password,
       }),
     });
-    const result = await fetchResponse.json();
-    console.log({ result });
-    if (!result.ok) {
+    if (!fetchResponse) {
       alert(`Error When Regis Strories : ${result.statusText}`);
     }
+    const result = await fetchResponse.json();
+    console.log({ result });
     return result;
   } catch (error) {
     alert("Error While Register : " + error.message);
     console.error(error);
+  } finally {
+    stopLoader();
   }
 }

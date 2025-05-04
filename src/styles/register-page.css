@@ -1,0 +1,88 @@
+.register-page {
+    margin-top: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 90vh;
+    padding: 2rem;
+}
+    
+.register-box {
+    background: #ffffff;
+    padding: 2.5rem;
+    border-radius: 16px;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+    max-width: 400px;
+    width: 100%;
+    animation: fade-slide-in 0.6s ease;
+}
+    
+.register-title {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+    color: #333;
+}
+    
+.form-register .form-group {
+    margin-bottom: 1.25rem;
+}
+    
+.form-register label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #444;
+    font-weight: 500;
+}
+    
+.form-register input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+    background-color: #f9f9f9;
+}
+    
+.btn-primary {
+    display: block;
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #009688;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+    
+.btn-primary:hover {
+    background-color: #00796b;
+}
+    
+.login-link {
+    text-align: center;
+    margin-top: 1rem;
+    font-size: 0.95rem;
+}
+    
+.register-message {
+    margin-top: 1rem;
+    text-align: center;
+    font-weight: bold;
+    font-size: 0.95rem;
+}
+    
+
+@keyframes fade-slide-in {
+    from {
+    opacity: 0;
+    transform: translateY(20px);
+    }
+    to {
+    opacity: 1;
+    transform: translateY(0);
+    }
+}

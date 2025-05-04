@@ -5,26 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="shortcut icon" href="/favicon.png" />
     <title>App</title>
-
     <script type="module" defer src="/scripts/index.js"></script>
   </head>
   <body>
     <header>
       <div class="main-header container">
-        <a class="brand-name" href="#/">App</a>
+        <a class="brand-name" id="brand-name" href="#/"></a>
+        <a href="#main-content" class="skip-to-content">Skip to Content</a>
 
         <nav id="navigation-drawer" class="navigation-drawer">
           <ul id="nav-list" class="nav-list">
-            <li><a href="#/">Beranda</a></li>
+            <li><a href="#/">Home</a></li>
             <li><a href="#/about">About</a></li>
             <li><a href="#/create">Add Story</a></li>
+            <li><a href="#" onclick="handleLogout()">Logout</a></li>
           </ul>
         </nav>
 
         <button id="drawer-button" class="drawer-button">☰</button>
       </div>
     </header>
-
+    <canvas id="bg-canvas-particle"></canvas>
+    <div class="loader-overlay" id="loader-overlay" style="display: none">
+      <div class="loader">
+        <div class="ball red"></div>
+        <div class="ball blue"></div>
+        <div class="ball yellow"></div>
+      </div>
+    </div>
     <main id="main-content" class="main-content"></main>
   </body>
 </html>
