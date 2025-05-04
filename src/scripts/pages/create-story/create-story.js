@@ -154,6 +154,13 @@ export default class CreatePage {
       attribution: "Elite Global",
     }).addTo(map);
 
+    const cutomMarker = L.icon({
+      iconUrl: "/images/marker.svg",
+      iconSize: [32, 47],
+      iconAnchor: [16, 47],
+      popupAnchor: [0, -47],
+    });
+
     let marker;
     map.on("click", (e) => {
       const { lat, lng } = e.latlng;
@@ -162,7 +169,7 @@ export default class CreatePage {
       if (marker) {
         marker.setLatLng(e.latlng);
       } else {
-        marker = L.marker(e.latlng).addTo(map);
+        marker = L.marker(e.latlng, { icon: cutomMarker }).addTo(map);
       }
     });
 
