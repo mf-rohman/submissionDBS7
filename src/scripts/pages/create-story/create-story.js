@@ -23,7 +23,7 @@ export default class CreatePage {
                             <label for="photo">Camera</label>
                             <video id="camera" autoplay playsinline width="320" height="240"></video>
                             <div class="photo-preview" id="camera-preview" style="display: none;">
-                                <label>Photo Preview</label>
+                                <label>Photo Capture</label>
                                 <img id="photo-preview" alt="Photo preview" width="320" height="240">
                             </div>
                             <button type="button" id="capture-btn" class="btn">Capture Foto</button>
