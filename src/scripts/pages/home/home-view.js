@@ -23,19 +23,19 @@ export default class HomeView {
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
       attribution: "Elite Global",
     }).addTo(this.map);
-
   }
 
-  const icon = L.icon({
-    iconUrl: "/images/marker.svg",
-    iconSize: [32, 47],
-    iconAnchor: [16, 47],
-    popupAnchor: [0, -47],
-  });
   addMarkers(stories) {
+    const icon = L.icon({
+      iconUrl: "/images/marker.svg",
+      iconSize: [32, 47],
+      iconAnchor: [16, 47],
+      popupAnchor: [0, -47],
+    });
+
     stories.forEach((story) => {
       if (story.lat && story.lon) {
-        L.marker([story.lat, story.lon, ], { icon })
+        L.marker([story.lat, story.lon], { icon })
           .addTo(this.map)
           .bindPopup(`<strong>${story.name}</strong><br>${story.description}`);
       }
