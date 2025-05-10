@@ -26,16 +26,18 @@ export default class HomeView {
   }
 
   addMarkers(stories) {
-    // const icon = L.icon({
-    //   iconUrl: "/images/marker.svg",
-    //   iconSize: [32, 47],
-    //   iconAnchor: [16, 47],
-    //   popupAnchor: [0, -47],
-    // });
+    const icon = L.icon({
+      iconUrl: "/images/marker.svg",
+      iconSize: [32, 47],
+      iconAnchor: [16, 47],
+      popupAnchor: [0, -47],
+    });
 
     stories.forEach((story) => {
-      if (story.lat && story.lon) {
-        L.marker([story.lat, story.lon])
+      const { lat, lon, name, description } = story;
+      if (lat && lon) {
+        const storyLatLng = [lat, lon];
+        L.marker(storyLatLng, { icon })
           .addTo(this.map)
           .bindPopup(`<strong>${story.name}</strong><br>${story.description}`);
       }
