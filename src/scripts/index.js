@@ -7,6 +7,9 @@ import App from "./pages/app";
 import handleLogout from "./handle-logout";
 import { initParticleBackground } from "./particle-control";
 import nameBrand from "./pages/brand-name";
+import handleSkipToContent from "./handleSkipToContent";
+import stopAllCamera from "./handleCamera";
+import AddStoryView from "./pages/create-story/addStory-view";
 
 document.addEventListener("DOMContentLoaded", async () => {
   const app = new App({
@@ -18,8 +21,11 @@ document.addEventListener("DOMContentLoaded", async () => {
   initParticleBackground("bg-canvas-particle");
 
   window.addEventListener("hashchange", async () => {
+    stopAllCamera();
     await app.renderPage();
   });
   nameBrand();
+  handleSkipToContent();
 });
 window.handleLogout = handleLogout;
+window.handleSkipToContent = handleSkipToContent;

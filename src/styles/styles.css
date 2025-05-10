@@ -148,6 +148,7 @@ header::before {
 
 /* MAIN */
 .main-content {
+  min-height: 100dvh;
   padding-block: 10px;
   transition: opacity 1s ease-in;
   /* opacity: 1; */

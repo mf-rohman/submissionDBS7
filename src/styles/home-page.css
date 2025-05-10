@@ -1,10 +1,22 @@
-.home-page {
+section .home-page {
+   padding-top: 80px;
     margin: 20px;
     padding: 20px;
 }
 
+#home-page {
+    margin-top: 100px;
+}
+
+#map {
+    height: 400px;
+    width: 100%;
+    z-index: 1;
+    top: 2%;
+}
+
 .story-list {
-    margin-top: 50px;
+    margin-top: 200px;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 40px;
@@ -19,29 +31,33 @@
     margin-bottom: 20px;
 }
 
-.story-item:nth-child(3n+5) {
+/* .story-item:nth-child(3n+5) {
     z-index: 3;
 }
 .story-item:nth-child(3n+7) {
     z-index: 2;
 }
-.story-item:nth-child(3n+300) {
+.story-item:nth-child(3n+6) {
     z-index: 1;
 }
 
-.story-item:nth-child(3n+5),
-.story-item:nth-child(3n+7) {
+.story-item:nth-child(4n+8) {
+    z-index: 1;
+}
+
+.story-item:nth-child(3n+1),
+.story-item:nth-child(3n+2) {
     animation: move-with-scroll reverse;
     animation-timeline: view();
     animation-range: entry 5% exit 200%; 
 }
 
-/* Second column (even columns) */
-.story-item:nth-child(3n+300) {
+.story-item:nth-child(4n+300),
+.story-item:nth-child(3n+3) {
     animation: move-against-scroll linear;
     animation-timeline: view();
     animation-range: entry 10% exit 100%;
-}
+} */
 
 .story-card {
     box-shadow: 0px 10px 20px 5px rgba(0, 0, 0, 0.2);

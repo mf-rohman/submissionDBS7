@@ -1,7 +1,8 @@
 export default class AboutView {
   render({ personalInfo, skills, team, contact }) {
     return `
-        <section class="about-container">
+      
+        <section class="about-container" id="about-page" tabindex="1">
           <div class="about-header">
             <h1 class="about-title">${personalInfo.title}</h1>
             <p class="about-subtitle">${personalInfo.subtitle}</p>
@@ -9,8 +10,8 @@ export default class AboutView {
   
           <div class="about-section mission-section">
             <div class="section-content fade-in">
-              <h2>About Me</h2>
-              <p>${personalInfo.description}</p>
+              <h2 >About Me</h2>
+              <p id="about-me">${personalInfo.description}</p>
             </div>
             <div class="section-image slide-in-right">
                 <div class="image-container">

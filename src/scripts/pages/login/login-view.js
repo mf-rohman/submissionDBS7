@@ -1,4 +1,3 @@
-
 export default class LoginView {
   constructor() {
     this.formLogin = null;
@@ -8,7 +7,7 @@ export default class LoginView {
 
   render() {
     return `
-        <section class="login-page container fade-slide-in">
+        <section class="login-page container fade-slide-in" id="login-page">
             <div class="login-box">
               <h2 class="login-title">Login</h2>
               <form class="login-form" id="login-form">

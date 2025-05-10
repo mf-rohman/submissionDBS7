@@ -7,7 +7,7 @@ export default class RegisterView {
 
     render() {
         return `
-            <section class="register-page container fade-slide-in">
+            <section class="register-page container fade-slide-in" id="register-page">
                 <div class="register-box">
                   <h2 class="register-title">Register</h2>
                   <form id="form-register" class="form-register">
