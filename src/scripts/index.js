@@ -26,6 +26,15 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
   nameBrand();
   handleSkipToContent();
+
+  if ("serviceWorker" in navigator) {
+    try {
+      const register = await navigator.serviceWorker.register("/service-worker.js");
+      console.log("Service worker registered", register);
+    } catch (error) {
+      console.log("Service worker not registered", error);
+    }
+  }
 });
 window.handleLogout = handleLogout;
 window.handleSkipToContent = handleSkipToContent;
