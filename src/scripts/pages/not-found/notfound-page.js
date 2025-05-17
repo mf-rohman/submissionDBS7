@@ -1,4 +1,4 @@
-import NotFoundView from "../../pages/not-found/notfound-view.js";
+import NotFoundView from "./notfound-view.js";
 import NotFoundModel from "../../pages/not-found/notfound-model.js";
 import NotFoundPresenter from "../../pages/not-found/notfound-presenter.js";
 import "../../../styles/not-found.css";
