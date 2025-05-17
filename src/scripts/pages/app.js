@@ -1,4 +1,4 @@
-import NotFoundPage from "../pages/notfound/notfound-page.js";
+import NotFoundPage from "../pages/notFound/notFound-page";
 import routes from "../routes/routes";
 import { getActiveRoute } from "../routes/url-parser";
 
