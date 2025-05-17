@@ -3,7 +3,6 @@ import AboutPage from "../pages/about/about-page";
 import RegisterPage from "../pages/register/register-page";
 import LoginPage from "../pages/login/login-page";
 import CreatePage from "../pages/create-story/addStory-page";
-import NotFoundPage from "../pages/notFound/notFound-page";
 
 const routes = {
   "/": new HomePage(),
