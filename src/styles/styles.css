@@ -3,7 +3,6 @@
   padding: 0;
 
   box-sizing: border-box;
-  
 }
 ::view-transition-old(root),
 ::view-transition-new(root) {
@@ -27,7 +26,7 @@
 }
 
 body {
-  font-family: 'Arial', sans-serif;
+  font-family: "Arial", sans-serif;
   scroll-behavior: smooth;
 }
 body::-webkit-scrollbar {
@@ -133,7 +132,7 @@ header::before {
   padding: 6px 10px;
 
   display: block;
-  
+
   color: #333;
   text-decoration: none;
 }
@@ -141,6 +140,17 @@ header::before {
 .nav-list li a:hover {
   text-decoration: underline;
 }
+
+.subscribe-button {
+  background-color: #0d6efd;
+  color: white;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
 .loader-overlay {
   opacity: 1;
   transition: opacity 0.5s ease;
@@ -188,13 +198,25 @@ header::before {
   }
 }
 @keyframes fade-in {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes fade-out {
-  from { opacity: 1; transform: translateY(0); }
-  to { opacity: 0; transform: translateY(-10px); }
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
 }
 @keyframes slide-out {
   from {

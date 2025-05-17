@@ -1,4 +1,4 @@
-import CONFIG from "../config";
+import { CONFIG } from "../config";
 import { fetchLoader, stopLoader } from "../loader-animation";
 
 export async function getAllDataStories() {
@@ -111,4 +111,61 @@ export async function register({ name, email, password }) {
   } finally {
     stopLoader();
   }
+}
+
+export async function subscribeWebPush({ endpoint, p256dh, auth }) {
+  try {
+    const keyToken = localStorage.getItem("token");
+    if (!keyToken) throw new Error("User not authenticated (no token)");
+
+    const response = await fetch(
+      `${CONFIG.API_BASE_URL}/notifications/subscribe`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${keyToken}`,
+        },
+        body: JSON.stringify({
+          endpoint,
+          keys: {
+            p256dh,
+            auth,
+          },
+        }),
+      }
+    );
+
+    const result = await response.json();
+    if (!response.ok || result.error) {
+      throw new Error(result.message || "Failed to subscribe");
+    }
+
+    return result;
+  } catch (error) {
+    console.error("Error subscribing to push notification:", error);
+    throw error;
+  }
+}
+
+export async function unsubscribeWebPush(endpoint) {
+  const keyToken = localStorage.getItem("token");
+
+  const response = await fetch(
+    CONFIG.API_BASE_URL + "/notifications/subscribe",
+    {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${keyToken}`,
+      },
+      body: JSON.stringify({ endpoint }),
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error("Gagal unsubscribe: " + response.statusText);
+  }
+
+  return response.json();
 }

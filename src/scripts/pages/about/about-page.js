@@ -1,4 +1,5 @@
 import "../../../styles/about-page.css";
+import { initSubscribeButton } from "../../utils/handleSubscribe.js";
 import AboutPresenter from "./about-presenter.js";
 
 
@@ -12,6 +13,7 @@ export default class AboutPage {
   }
 
   async afterRender() {
+    await initSubscribeButton();
     const observerOptions = {
       root: null,
       rootMargin: "0px",

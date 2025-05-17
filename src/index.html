@@ -26,12 +26,20 @@
             <li><a href="#/about">About</a></li>
             <li><a href="#/create">Add Story</a></li>
             <li><a href="#" onclick="handleLogout()">Logout</a></li>
+            <li>
+              <div id="subscribeContainer" style="display: none">
+                  <button id="subscribeBtn" class="subscribe-button">
+                    🔔 Subscribe
+                  </button>
+              </div>  
+            </li>
           </ul>
         </nav>
 
         <button id="drawer-button" class="drawer-button">☰</button>
       </div>
     </header>
+
     <canvas id="bg-canvas-particle"></canvas>
     <div class="loader-overlay" id="loader-overlay" style="display: none">
       <div class="loader">
@@ -41,5 +49,7 @@
       </div>
     </div>
     <main id="main-content" class="main-content"></main>
+
+    </div>
   </body>
 </html>

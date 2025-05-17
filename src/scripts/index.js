@@ -1,4 +1,3 @@
-// CSS imports
 import "../styles/styles.css";
 import "../styles/skip-content.css";
 import "../styles/particle-style.css";
@@ -18,6 +17,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     navigationDrawer: document.querySelector("#navigation-drawer"),
   });
   await app.renderPage();
+
   initParticleBackground("bg-canvas-particle");
 
   window.addEventListener("hashchange", async () => {
@@ -25,11 +25,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     await app.renderPage();
   });
   nameBrand();
-  handleSkipToContent();
-
   if ("serviceWorker" in navigator) {
     try {
-      const register = await navigator.serviceWorker.register("/service-worker.js");
+      const register = await navigator.serviceWorker.register(
+        "/service-worker.js"
+      );
       console.log("Service worker registered", register);
     } catch (error) {
       console.log("Service worker not registered", error);

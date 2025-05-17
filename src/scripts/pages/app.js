@@ -1,3 +1,4 @@
+import NotFoundPage from "../pages/notfound/notfound-page.js";
 import routes from "../routes/routes";
 import { getActiveRoute } from "../routes/url-parser";
 
@@ -44,12 +45,16 @@ class App {
       return;
     }
 
-    const page = routes[url];
+    const page = routes[url] || new NotFoundPage();
+    console.log("Page: ", page);
 
     if (document.startViewTransition) {
-      document.startViewTransition(async () => {
-        this.#content.innerHTML = await page.render();
-        if (page.afterRender) await page.afterRender();
+      await new Promise((resolve) => {
+        document.startViewTransition(async () => {
+          this.#content.innerHTML = await page.render();
+          if (page.afterRender) await page.afterRender();
+          resolve();
+        });
       });
     } else {
       this.#content.innerHTML = await page.render();

@@ -3,6 +3,7 @@ import "../../../styles/skip-content.css";
 import HomeView from "./home-view.js";
 import HomeModel from "./home-model.js";
 import HomePresenter from "./home-presenter.js";
+import { initSubscribeButton } from "../../utils/handleSubscribe.js";
 
 export default class HomePage {
   async render() {
@@ -14,6 +15,7 @@ export default class HomePage {
   }
 
   async afterRender() {
+    await initSubscribeButton();
     this.view.eventRender();
     this.presenter.loadStories();
   }

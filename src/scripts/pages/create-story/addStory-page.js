@@ -5,6 +5,7 @@ import L from "leaflet";
 import AddStoryModel from "./addStory-model";
 import AddStoryView from "./addStory-view";
 import AddStoryPresenter from "./addStroy-presenter";
+import { initSubscribeButton } from "../../utils/handleSubscribe";
 
 export default class CreatePage {
   async render() {
@@ -20,6 +21,7 @@ export default class CreatePage {
   }
 
   async afterRender() {
+    await initSubscribeButton();
     console.log("Running afterRender...");
     // this.view.setupElementReferences();
    this.presenter.init();
