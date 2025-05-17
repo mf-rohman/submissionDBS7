@@ -1,6 +1,6 @@
-import NotFoundView from "./notFound-view";
-import NotFoundModel from "./notFound-model";
-import NotFoundPresenter from "./notFound-presenter";
+import NotFoundView from "./notfound-view";
+import NotFoundModel from "./notfound-model";
+import NotFoundPresenter from "./notfound-presenter";
 import "../../../styles/not-found.css";
 
 export default class NotFoundPage {
