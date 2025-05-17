@@ -7,7 +7,7 @@ export default class NotFoundView {
         <p class="animate-slide-up">${message}</p>
         <a href="#/" class="btn-home-animated">
             <span class="home-icon">🏠</span>
-            <span class="home-text">Kembali ke Beranda</span>
+            <span class="home-text">Back to Home</span>
         </a>
       </section>
     `;

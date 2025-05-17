@@ -1,5 +1,5 @@
 export default class NotFoundModel {
   getMessage() {
-    return "Halaman yang kamu cari tidak ditemukan.";
+    return "Pages your are looking for does not exist.";
   }
 }
