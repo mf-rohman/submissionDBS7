@@ -1,5 +1,5 @@
-import NotFoundModel from "./notfound-model.js";
-import NotFoundView from "./notfound-view.js";
+import NotFoundModel from "./notFound-model.js";
+import NotFoundView from "./notFound-view.js";
 
 export default class NotFoundPresenter {
   constructor() {
