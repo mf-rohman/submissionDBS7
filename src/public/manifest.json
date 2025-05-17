@@ -17,5 +17,18 @@
             "sizes": "512x512",
             "type": "image/png"
         }
+    ],
+    "screenshots": [
+        {
+            "src": "/images/ssDesktop.png",
+            "sizes": "1280x800",
+            "type": "image/png"
+        },
+        {
+            "src": "/images/screenshot2.png",
+            "sizes": "1280x800",
+            "type": "image/png"
+        }
     ]
+    
 }
