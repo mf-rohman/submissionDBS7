@@ -52,8 +52,8 @@ self.addEventListener("push", (event) => {
 
   const options = {
     body: body,
-    icon: "/images/kana-logo.png",
-    badge: "/images/kana-logo.png",
+    icon: "/images/kana-logo192.png",
+    badge: "/images/kana-logo512.png",
   };
 
   event.waitUntil(
