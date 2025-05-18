@@ -7,7 +7,11 @@ import { initSubscribeButton } from "../../utils/handleSubscribe.js";
 
 export default class HomePage {
   async render() {
-    this.view = new HomeView();
+    console.log("HomePage render....");
+    this.view = new HomeView({
+      onSaveClick: (story) => this.presenter.handleSaveStory(story),
+      onDetailClick: (story) => this.presenter.handleDetailStory(story),
+    });
     this.model = new HomeModel();
     this.presenter = new HomePresenter({ view: this.view, model: this.model });
 

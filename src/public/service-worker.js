@@ -14,6 +14,12 @@ const urlsToCache = [
   "/images/my-logo.png",
   "/images/my-logo-192.png",
   "/images/marker.svg",
+  "/pages/home/home-page.js",
+  "/pages/home/home-model.js",
+  "/pages/home/home-view.js",
+  "/pages/home/home-presenter.js",
+  "/data/api.js",
+  "/data/indexDB/save-story.js",
 ];
 
 self.addEventListener("install", (event) => {
@@ -33,32 +39,78 @@ self.addEventListener("fetch", (event) => {
   );
 });
 
+// self.addEventListener("push", function (event) {
+//   console.log("[Service Worker] Push Received.");
+//   const data = event.data?.json() || {};
+
+//   const title = data.title || "Push Default Title";
+//   const options = {
+//     body: data.body || "Isi body default",
+//     icon: "/images/kana-logo192.png",
+//     requireInteraction: true,
+//     vibrate: [200, 100, 200],
+//     tag: "push-test",
+//   };
+
+//   event.waitUntil(self.registration.showNotification(title, options));
+// });
+
+// self.addEventListener("message", (event) => {
+//   if (event.data?.type === "simulate-push") {
+//     const { title, body } = event.data.data;
+
+//     console.log("[Service Worker] Simulate push message");
+
+//     self.registration.showNotification(title || "Tes Default", {
+//       body: body || "Pesan dari simulasi",
+//       requireInteraction: true,
+//     });
+//   }
+// });
+
 self.addEventListener("push", (event) => {
-  console.log("Service worker pushing...");
+  console.log("Service worker received a push message");
 
   let title = "Notification";
-  let body = "there is a new notification";
+  let body = "There is a new notification";
 
   if (event.data) {
     try {
       const data = event.data.json();
+      console.log("Push data:", data);
       title = data.title || title;
       body = data.body || body;
     } catch (e) {
-      console.error("failed parse payload:", e);
+      console.error("Failed to parse push payload:", e);
       body = event.data.text();
     }
   }
 
   const options = {
     body: body,
-    icon: "/images/kana-logo192.png",
-    badge: "/images/kana-logo512.png",
+    icon: "/images/my-logo-192.png",
+    requireInteraction: true,
+    tag: "test-notif",
+    renotify: true,
   };
 
-  event.waitUntil(
-    self.registration.showNotification(title, options).catch((err) => {
-      console.error("showNotification error:", err);
-    })
-  );
+  event.waitUntil(self.registration.showNotification(title, options));
+});
+
+self.addEventListener("message", (event) => {
+  if (event.data && event.data.type === "SHOW_NOTIFICATION") {
+    const { title, body } = event.data.data || {};
+    const options = {
+      body: body || "Default body",
+      icon: "/images/my-logo-192.png",
+      requireInteraction: true,
+      tag: "simulated-notif",
+      renotify: true,
+    };
+
+    self.registration.showNotification(
+      title || "Simulated Notification",
+      options
+    );
+  }
 });

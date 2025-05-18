@@ -1,12 +1,12 @@
 export default class RegisterView {
-    constructor() {
-        this.formRegister = null;
-        this.registerMessage = null;
-        this.onSubmit = null;
-    }
+  constructor() {
+    this.formRegister = null;
+    this.registerMessage = null;
+    this.onSubmit = null;
+  }
 
-    render() {
-        return `
+  render() {
+    return `
             <section class="register-page container fade-slide-in" id="register-page">
                 <div class="register-box">
                   <h2 class="register-title">Register</h2>
@@ -33,32 +33,35 @@ export default class RegisterView {
                 </div>
             </section>
         `;
-    }
+  }
 
-    eventRender() {
-        this.formRegister = document.getElementById("form-register");
-        this.registerMessage = document.getElementById("register-message");
+  eventRender() {
+    this.formRegister = document.getElementById("form-register");
+    this.registerMessage = document.getElementById("register-message");
 
-        this.formRegister.addEventListener("submit", (e) => {
-            e.preventDefault();
-            this.registerMessage.textContent = "";
+    this.formRegister.addEventListener("submit", (e) => {
+      e.preventDefault();
+      this.registerMessage.textContent = "";
 
-            const name = document.getElementById("name").value;
-            const email = document.getElementById("email").value;
-            const password = document.getElementById("password").value;
+      const name = document.getElementById("name").value;
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
 
-            if (this.onSubmit) {
-                this.onSubmit({ name, email, password });
-            }
-        });
-    }
+      if (this.onSubmit) {
+        this.onSubmit({ name, email, password });
+      }
+    });
+  }
 
-    showMessage(message, color="red") {
-        this.registerMessage.textContent = message;
-        this.registerMessage.style.color = color;
-    }
+  showMessage(message, color = "red") {
+    this.registerMessage.textContent = message;
+    this.registerMessage.style.color = color;
+  }
 
-    navigateToLogin() {
-        window.location.hash = "#/login";
-    }
+  navigateToLogin() {
+    window.location.hash = "#/login";
+  }
+  clearForm() {
+    this.formRegister.reset();
+  }
 }

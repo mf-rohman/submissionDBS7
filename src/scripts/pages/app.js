@@ -41,7 +41,7 @@ class App {
     const token = localStorage.getItem("token");
 
     if (!token && url !== "/register" && url !== "/login") {
-      window.location.hash = "#/register";
+      window.location.hash = "#/login";
       return;
     }
 

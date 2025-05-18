@@ -2,9 +2,12 @@ import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 
 export default class HomeView {
+  constructor({ onSaveClick, onDetailClick }) {
+    this.onSaveClick = onSaveClick;
+    this.onDetailClick = onDetailClick;
+  }
   render() {
     return `
-    
       <section class="home-page" id="home-page">
         <div id="map" style="height: 400px; width: 100%; margin-bottom: 20px;"></div>
         <div class="story-list" id="story-list"></div>
@@ -67,8 +70,33 @@ export default class HomeView {
               story.lon
             }</p>
           </div>
+          <div class="btn-story">
+            <button class="btn-detail-story">Detail</button>
+            <button class="btn-save-story"
+              data-bookmark-button 
+              data-story-id="${story.id}" 
+              data-story-name="${story.name}" 
+              data-story-description="${story.description}" 
+              data-story-lat="${story.lat}" 
+              data-story-lon="${story.lon}" 
+              data-story-photo-url="${story.photoUrl}" 
+              data-story-date="${story.date}">
+              ${story.isSaved ? "Unsave" : "Save"}
+            </button>
+          </div>
         </div>
       `;
+      storyElement
+        .querySelector(".btn-detail-story")
+        .addEventListener("click", async () => {
+          event.preventDefault();
+          await this.onDetailClick(story);
+        });
+      storyElement
+        .querySelector(".btn-save-story")
+        .addEventListener("click", () => {
+          this.onSaveClick(story);
+        });
       this.storyListContainer.append(storyElement);
     });
   }
