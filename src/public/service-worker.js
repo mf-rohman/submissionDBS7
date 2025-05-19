@@ -3,6 +3,8 @@ const urlsToCache = [
   "/",
   "./package-lock.json",
   "./package.json",
+  "./dist/index-DjohdyQl.css",
+  "./dist/index-DPOHSM31.css",
   "./src",
   "./src/index.html",
   "./src/public",
