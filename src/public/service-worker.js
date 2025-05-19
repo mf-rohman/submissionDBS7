@@ -9,8 +9,6 @@ const urlsToCache = [
   "./dist/images/logo.png",
   "./dist/images/marker.svg",
   "./dist/images/me.jpeg",
-  "./dist/images/mine.gif",
-  "./dist/images/mine1.gif",
   "./dist/images/my-logo-192.png",
   "./dist/images/my-logo.png",
   "./dist/images/ssDesktop.png",
