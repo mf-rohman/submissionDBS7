@@ -18,7 +18,6 @@ const urlsToCache = [
   "./src/public/images/me.jpeg",
   "./src/public/images/mine.gif",
   "./src/public/images/mine1.gif",
-  "./src/public/images/mine2.mp4",
   "./src/public/images/my-logo-192.png",
   "./src/public/images/my-logo.png",
   "./src/public/images/ssDesktop.png",
