@@ -107,47 +107,12 @@ self.addEventListener("install", (event) => {
 
 self.addEventListener("fetch", (event) => {
   const url = new URL(event.request.url);
-
-  // Jangan tangani permintaan ke domain luar (contoh: OpenStreetMap)
-  if (url.origin !== self.location.origin) {
-    return;
-  }
-
   event.respondWith(
     caches.match(event.request).then((response) => {
       return response || fetch(event.request);
     })
   );
 });
-
-// self.addEventListener("push", function (event) {
-//   console.log("[Service Worker] Push Received.");
-//   const data = event.data?.json() || {};
-
-//   const title = data.title || "Push Default Title";
-//   const options = {
-//     body: data.body || "Isi body default",
-//     icon: "/images/kana-logo192.png",
-//     requireInteraction: true,
-//     vibrate: [200, 100, 200],
-//     tag: "push-test",
-//   };
-
-//   event.waitUntil(self.registration.showNotification(title, options));
-// });
-
-// self.addEventListener("message", (event) => {
-//   if (event.data?.type === "simulate-push") {
-//     const { title, body } = event.data.data;
-
-//     console.log("[Service Worker] Simulate push message");
-
-//     self.registration.showNotification(title || "Tes Default", {
-//       body: body || "Pesan dari simulasi",
-//       requireInteraction: true,
-//     });
-//   }
-// });
 
 self.addEventListener("push", (event) => {
   console.log("Service worker received a push message");
