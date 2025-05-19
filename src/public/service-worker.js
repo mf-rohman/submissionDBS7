@@ -89,11 +89,20 @@ self.addEventListener("install", (event) => {
 
 self.addEventListener("fetch", (event) => {
   const url = new URL(event.request.url);
-  event.respondWith(
-    caches.match(event.request).then((response) => {
-      return response || fetch(event.request);
-    })
-  );
+  if (url.origin === location.origin) {
+    if (event.request.destination === "document") {
+      event.respondWith(
+        caches.match(event.request).then((response) => {
+          return response || fetch(event.request);
+        })
+      );
+    }
+  }
+  // event.respondWith(
+  //   caches.match(event.request).then((response) => {
+  //     return response || fetch(event.request);
+  //   })
+  // );
 });
 
 self.addEventListener("push", (event) => {
