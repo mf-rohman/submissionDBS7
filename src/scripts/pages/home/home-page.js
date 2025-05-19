@@ -4,6 +4,7 @@ import HomeView from "./home-view.js";
 import HomeModel from "./home-model.js";
 import HomePresenter from "./home-presenter.js";
 import { initSubscribeButton } from "../../utils/handleSubscribe.js";
+import "../../../styles/button.css";
 
 export default class HomePage {
   async render() {

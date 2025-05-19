@@ -6,7 +6,7 @@ export async function getAllDataStories() {
   try {
     const keyToken = localStorage.getItem("token");
     const fetchResponse = await fetch(
-      CONFIG.API_BASE_URL + "/stories?size=80",
+      CONFIG.API_BASE_URL + "/stories?size=20",
       {
         method: "GET",
         headers: {
@@ -28,24 +28,19 @@ export async function getAllDataStories() {
 export async function getDetailStory(id) {
   try {
     const keyToken = localStorage.getItem("token");
-    const fetchResponse = await fetch(
-      CONFIG.API_BASE_URL + `/stories/${id}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${keyToken}`,
-        },
-      }
-    );
+    const fetchResponse = await fetch(CONFIG.API_BASE_URL + `/stories/${id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${keyToken}`,
+      },
+    });
     if (!fetchResponse.ok) {
       alert(`Error When Get Detail Strories : ${fetchResponse.statusText}`);
     }
     const result = await fetchResponse.json();
     return result;
-  } catch (error) {
-
-  }
+  } catch (error) {}
 }
 
 export async function createStory({ description, photo, lat, lon }) {

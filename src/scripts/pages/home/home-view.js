@@ -64,10 +64,8 @@ export default class HomeView {
             <p class="story-desc"><span>Description : </span> ${
               story.description
             }</p>
-            <p class="story-date"><span>Time Stamp : </span> ${story.date}</p>
-            <p class="story-coordinate"><span>Latitude : </span>${story.lat}</p>
-            <p class="story-coordinate"><span>Longitude : </span>${
-              story.lon
+            <p class="story-coordinate"><span>Created At : </span>${
+              story.date
             }</p>
           </div>
           <div class="btn-story">

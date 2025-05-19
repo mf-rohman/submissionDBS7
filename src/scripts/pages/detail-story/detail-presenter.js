@@ -8,7 +8,12 @@ export default class DetailPresenter {
   async loadStoryDetail() {
     try {
       const story = await this.model.getStoryDetail(this.storyId);
-      this.view.showStoryDetail(story);
+
+      if (story && story.story) {
+        this.view.showStoryDetail(story.story);
+      } else {
+        this.view.showError("Story not found.");
+      }
     } catch (error) {
       this.view.showError("Failed to load story detail.");
       console.error(error);

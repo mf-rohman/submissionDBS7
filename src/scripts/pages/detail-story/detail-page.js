@@ -1,25 +1,32 @@
-import DetailView from "./detail-view";
-import DetailModel from "./detail-model";
-import DetailPresenter from "./detail-presenter";
+import DetailView from "./detail-view.js";
+import DetailModel from "./detail-model.js";
+import DetailPresenter from "./detail-presenter.js";
+import { parseActivePathname } from "../../routes/url-parser.js";
+import "../../../styles/detail-page.css";
+
 
 export default class DetailPage {
-  constructor(storyId) {
-    this.storyId = storyId;
+  constructor() {
+    this.storyId = null;
   }
 
   async render() {
-    this.view = new DetailView();
-    this.model = new DetailModel();
-    this.presenter = new DetailPresenter({
-      view: this.view,
-      model: this.model,
-      storyId: this.storyId,
-    });
-
-    return this.view.render();
+    return new DetailView().render();
   }
 
   async afterRender() {
-    this.presenter.loadStoryDetail();
+    const view = new DetailView();
+    const model = new DetailModel();
+
+    const { id } = parseActivePathname();
+    this.storyId = id;
+
+    const presenter = new DetailPresenter({
+      view,
+      model,
+      storyId: this.storyId,
+    });
+
+    await presenter.loadStoryDetail();
   }
 }
