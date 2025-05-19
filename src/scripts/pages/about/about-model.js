@@ -60,7 +60,7 @@ export default class AboutModel {
         name: "Marsella Vindriani",
         role: "Member (FEBE)",
         image:
-          "https://media-cgk1-2.cdn.whatsapp.net/v/t61.24694-24/483643490_1319836789318407_2555980662427249054_n.jpg?ccb=11-4&oh=01_Q5Aa1QEE1NBwN3QaExY_ykoZV1_ozhIm1DsKyhKtJ4yFmbxiyQ&oe=68222CEB&_nc_sid=5e03e0&_nc_cat=104",
+          "https://cdn-icons-png.freepik.com/256/15675/15675868.png?semt=ais_hybrid",
       },
       {
         name: "Miftahurrohman",
