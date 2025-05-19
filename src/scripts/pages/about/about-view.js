@@ -23,7 +23,7 @@ export default class AboutView {
           <div class="about-section features-section">
             <div class="section-image slide-in-left">
                 <div class="video-container">
-                    <video src="" class="about-video" autoplay loop></video>
+                    <video src="/images/mine2.mp4" class="about-video" autoplay loop></video>
                 </div>
             </div>
             <div class="section-content fade-in">
