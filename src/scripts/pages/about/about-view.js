@@ -23,7 +23,7 @@ export default class AboutView {
           <div class="about-section features-section">
             <div class="section-image slide-in-left">
                 <div class="video-container">
-                    <video src="/images/mine2.mp4" class="about-video" autoplay loop></video>
+                    <video src="/images/mine1.gif" class="about-video" autoplay loop></video>
                 </div>
             </div>
             <div class="section-content fade-in">
@@ -78,9 +78,13 @@ export default class AboutView {
               }</p></div>
             </div>
             <div class="social-links">
-                ${contact.socials.map(social => `
+                ${contact.socials
+                  .map(
+                    (social) => `
                   <a href="${social.url}" class="social-link" target="_blank" rel="noopener noreferrer">${social.name}</a>
-                `).join('')}
+                `
+                  )
+                  .join("")}
               </div>
           </div>
         </section>
