@@ -26,14 +26,19 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
   nameBrand();
   if ("serviceWorker" in navigator) {
-    try {
-      const register = await navigator.serviceWorker.register(
-        "/service-worker.js"
-      );
-      console.log("Service worker registered", register);
-    } catch (error) {
-      console.log("Service worker not registered", error);
-    }
+    window.addEventListener("load", () => {
+      navigator.serviceWorker
+        .register("/service-worker.js")
+        .then((registration) => {
+          console.log(
+            "Service Worker registered with scope:",
+            registration.scope
+          );
+        })
+        .catch((error) => {
+          console.error("Service Worker registration failed:", error);
+        });
+    });
   }
 });
 window.handleLogout = handleLogout;
