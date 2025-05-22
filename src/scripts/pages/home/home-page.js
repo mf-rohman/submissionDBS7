@@ -12,6 +12,7 @@ export default class HomePage {
     this.view = new HomeView({
       onSaveClick: (story) => this.presenter.handleSaveStory(story),
       onDetailClick: (story) => this.presenter.handleDetailStory(story),
+      onShowSavedClick: () => this.presenter.loadSaveStories(),
     });
     this.model = new HomeModel();
     this.presenter = new HomePresenter({ view: this.view, model: this.model });
@@ -23,5 +24,6 @@ export default class HomePage {
     await initSubscribeButton();
     this.view.eventRender();
     this.presenter.loadStories();
+    this.presenter.loadSaveStories();
   }
 }

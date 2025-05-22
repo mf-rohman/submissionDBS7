@@ -43,6 +43,29 @@ export default class HomePresenter {
     }
   }
 
+  async loadSaveStories() {
+    try {
+      const savedStories = await SavedStories.getAllStories();
+
+      if (!savedStories || savedStories.length === 0) {
+        this.view.showEmptyMessage();
+        return;
+      }
+
+      const formattedStories = savedStories.map((story) => ({
+        ...story, 
+        isSaved: true, 
+        date: new Date (story.createdAt).toLocaleString()
+      }));
+
+      this.view.showStories(formattedStories);
+      this.view.addMarkers(formattedStories);
+    } 
+    catch (error) {
+      console.log("Failed to load saved stories:", error);  
+    }
+  }
+
   updateView(stories) {
     this.view.showStories(stories);
     this.view.addMarkers(stories);

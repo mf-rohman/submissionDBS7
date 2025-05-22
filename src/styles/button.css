@@ -15,8 +15,7 @@
   transition: background-color 0.3s ease;
 }
 
-/* Detail button */
-.btn-detail-story {
+  .btn-detail-story {
   background-color: #6c757d;
   color: #fff;
 }
@@ -25,7 +24,6 @@
   background-color: #5a6268;
 }
 
-/* Save button */
 .btn-save-story {
   background-color: #1e90ff;
   color: #fff;
@@ -35,11 +33,21 @@
   background-color: #0f75d4;
 }
 
-/* Unsave style override (you can toggle this class in JS if needed) */
 .btn-save-story.unsave {
   background-color: #ff4d4d;
 }
 
 .btn-save-story.unsave:hover {
   background-color: #cc0000;
+}
+
+.btn-show-saved {
+  background-color: #7ed957;
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border-radius: 10px;
+  font-weight: bold;
+}
+.btn-show-saved:hover {
+  background-color: #67be45;
 }

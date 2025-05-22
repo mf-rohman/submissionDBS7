@@ -1,15 +1,23 @@
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
+import showNotification from "../../utils/showNotification";
 
 export default class HomeView {
-  constructor({ onSaveClick, onDetailClick }) {
+  constructor({ onSaveClick, onDetailClick, onShowSavedClick }) {
     this.onSaveClick = onSaveClick;
     this.onDetailClick = onDetailClick;
+    this.handleShowSaved = onShowSavedClick;
   }
+
+
+
   render() {
     return `
       <section class="home-page" id="home-page">
         <div id="map" style="height: 400px; width: 100%; margin-bottom: 20px;"></div>
+        <div style="text-align: right; margin-bottom: 1rem;">
+          <button id="btn-show-saved" class="btn-show-saved">Show Saved Stories</button>
+        </div>
         <div class="story-list" id="story-list"></div>
         <div class="home-page-message" id="home-page-message"></div>
       </section>
@@ -26,6 +34,11 @@ export default class HomeView {
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
       attribution: "Elite Global",
     }).addTo(this.map);
+
+     const btnSaved = document.getElementById("btn-show-saved");
+    if (btnSaved && this.handleShowSaved) {
+      btnSaved.addEventListener("click", () => this.handleShowSaved());
+    }
   }
 
   addMarkers(stories) {
@@ -94,6 +107,7 @@ export default class HomeView {
         .querySelector(".btn-save-story")
         .addEventListener("click", () => {
           this.onSaveClick(story);
+          showNotification(`Story ${story.name} ${story.isSaved ? "Unsaved" : "Saved"}`, `Your Story was Successfully ${story.isSaved ? "Unsaved" : "Saved"}` );
         });
       this.storyListContainer.append(storyElement);
     });
