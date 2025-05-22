@@ -55,7 +55,7 @@ export default class HomePresenter {
       const formattedStories = savedStories.map((story) => ({
         ...story, 
         isSaved: true, 
-        date: new Date (story.createdAt).toLocaleString()
+        date: new Date (story.date).toLocaleString()
       }));
 
       this.view.showStories(formattedStories);
